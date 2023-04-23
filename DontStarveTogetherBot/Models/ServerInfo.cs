@@ -128,4 +128,24 @@ public class ServerInfo
         }
         return players;
     }
+
+    public string GetSeason()
+    {
+        return Season;
+    }
+
+    public int GetDay()
+    {
+        return int.Parse(Regex.Match(Data, @"day=(\d+)").Groups[1].Value);
+    }
+
+    public int GetDaysElapsedInSeason()
+    {
+        return int.Parse(Regex.Match(Data, @"dayselapsedinseason=(\d+)").Groups[1].Value);
+    }
+
+    public int GetDaysLeftInSeason()
+    {
+        return int.Parse(Regex.Match(Data, @"daysleftinseason=(\d+)").Groups[1].Value);
+    }
 }

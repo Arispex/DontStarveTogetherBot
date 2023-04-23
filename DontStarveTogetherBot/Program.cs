@@ -30,6 +30,11 @@ Log.Info("System", "连接成功。");
 
 session.UseGroupMessage(async (context, next) =>
 {
+    // 判断是否为白名单群
+    if (!config.QqGroups.Contains(context.GroupId))
+    {
+        return;
+    }
     if (context.RawMessage == "在线")
     {
         var server = new Server(config.DstServerIp, config.DstServerPort);
@@ -49,6 +54,25 @@ session.UseGroupMessage(async (context, next) =>
             return;
         }
         await session.SendGroupMessageAsync(context.GroupId, new CqMessage("当前在线玩家：\n" + string.Join(" ", players.Select(x => $"[{x.Name}({x.Prefab})]"))));
+        return;
+    }
+
+    if (context.RawMessage == "世界信息")
+    {
+        var server = new Server(config.DstServerIp, config.DstServerPort);
+        ServerInfo serverInfo;
+        try
+        {
+            serverInfo = await server.GetServerInfoAsync();
+        }
+        catch (ServerNotFoundException e)
+        {
+            await session.SendGroupMessageAsync(context.GroupId, new CqMessage("无法连接至服务器。"));
+            return;
+        }
+
+        var message = $"房间名称：{serverInfo.Name}\n天数：{serverInfo.GetDay()}\n季节：{serverInfo.GetSeason()}\n这个季节已经过去了 {serverInfo.GetDaysElapsedInSeason()} 天\n距离下个季节还有 {serverInfo.GetDaysLeftInSeason()} 天";
+        await session.SendGroupMessageAsync(context.GroupId, new CqMessage(message));
         return;
     }
 });
