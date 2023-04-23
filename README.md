@@ -8,10 +8,10 @@
 ## 配置文件
 
 ```yaml
-CqWsAddress: ws://127.0.0.1:8080  // go-cqhttp 正向服务地址
-QqGroups: []  // QQ 群号
-Region: ap-east-1  // AWS 地区
-KLeiToken: exampleToken  // KLei Token
-DstServerIp: 127.0.0.1  // Dst 服务器公网地址
-DstServerPort: 10999  // Dst 服务器端口
+CqWsAddress: ws://127.0.0.1:8080  # go-cqhttp 正向服务地址
+QqGroups: []  # QQ 群号
+Region: ap-east-1  # AWS 地区
+KLeiToken: exampleToken  # KLei Token
+DstServerIp: 127.0.0.1  # Dst 服务器公网地址
+DstServerPort: 10999  # Dst 服务器端口
 ```
