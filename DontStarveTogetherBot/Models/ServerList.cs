@@ -4,6 +4,5 @@ namespace DontStarveTogetherBot.Models;
 
 public class ServerList
 {
-    [JsonPropertyName("GET")]
-    public List<ServerInfo> ServerInfos { get; set; }
+    [JsonPropertyName("GET")] public List<ServerInfo> ServerInfos { get; set; }
 }
