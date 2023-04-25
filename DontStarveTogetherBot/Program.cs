@@ -75,6 +75,12 @@ session.UseGroupMessage(async (context, next) =>
         await session.SendGroupMessageAsync(context.GroupId, new CqMessage(message));
         return;
     }
+
+    if (context.RawMessage == "直连代码")
+    {
+        await session.SendGroupMessageAsync(context.GroupId, new CqMessage($"c_connect(\"{config.DstServerIp}\", {config.DstServerPort})"));
+        return;
+    }
 });
 
 await session.WaitForShutdownAsync();

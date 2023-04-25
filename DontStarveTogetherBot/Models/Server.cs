@@ -1,4 +1,5 @@
 using System.IO.Compression;
+using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -49,12 +50,14 @@ public class Server
         
         var rowId = await this.GetRowIdAsync();
         var url = "https://lobby-v2-ap-east-1.klei.com/lobby/read";
-        var query = new Dictionary<string, object>();
-        query["__gameId"] = "DontStarveTogether";
-        query["__token"] = config.KLeiToken;
-        query["query"] = new Dictionary<string, string>()
+        var query = new Dictionary<string, object>
         {
-            {"__rowid", rowId}
+            ["__gameId"] = "DontStarveTogether",
+            ["__token"] = config.KLeiToken,
+            ["query"] = new Dictionary<string, string>()
+            {
+                {"__rowid", rowId}
+            }
         };
         var jsonString = JsonSerializer.Serialize(query);
         var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
