@@ -42,7 +42,7 @@ public class Server
         var config = new Deserializer().Deserialize<Config>(await File.ReadAllTextAsync(configPath));
 
         var rowId = await GetRowIdAsync();
-        var url = "https://lobby-v2-ap-east-1.klei.com/lobby/read";
+        var url = $"https://lobby-v2-{config.Region}.klei.com/lobby/read";
         var query = new Dictionary<string, object>
         {
             ["__gameId"] = "DontStarveTogether",
